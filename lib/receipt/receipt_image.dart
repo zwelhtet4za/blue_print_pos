@@ -1,5 +1,5 @@
 import 'collection_style.dart';
-import 'receipt.dart';
+import 'receipt_text_enum.dart';
 
 class ReceiptImage {
   ReceiptImage(

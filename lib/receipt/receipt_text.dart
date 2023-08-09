@@ -1,35 +1,34 @@
-import 'collection_style.dart';
-import 'receipt_alignment.dart';
-import 'receipt_text_size_type.dart';
-import 'receipt_text_style.dart';
-import 'receipt_text_style_type.dart';
+import 'package:esc_pos_utils_plus/esc_pos_utils.dart';
+
+import 'receipt_text_enum.dart';
 
 class ReceiptText {
   ReceiptText(
-    this.text, {
-    this.textStyle = const ReceiptTextStyle(
-      type: ReceiptTextStyleType.normal,
-      size: ReceiptTextSizeType.medium,
-    ),
-    this.alignment = ReceiptAlignment.center,
-  });
+      {required this.text, required this.paperSize, required this.alignment});
 
   final String text;
-  final ReceiptTextStyle textStyle;
+  final PaperSize paperSize;
   final ReceiptAlignment alignment;
 
-  String get html => '''
-    <div class="$_alignmentStyleHTML ${textStyle.textSizeHtml}">
-      <${textStyle.textStyleHTML}>$text</${textStyle.textStyleHTML}>
-    </div>
+  String get html {
+    if (paperSize == PaperSize.mm80) {
+      return '''
+      <div class="sub-header ${getReceiptTextSizeHTML(size: ReceiptTextSize.normal)} ${getReceiptTextAlignMentHTML(alignment: alignment)}">
+      <span class="my-3 ">$text</span>
+      </div>
     ''';
-
-  String get _alignmentStyleHTML {
-    if (alignment == ReceiptAlignment.left) {
-      return CollectionStyle.textLeft;
-    } else if (alignment == ReceiptAlignment.right) {
-      return CollectionStyle.textRight;
+    } else if (paperSize == PaperSize.mm58) {
+      return '''
+      <div class="sub-header ${getReceiptTextSizeHTML(size: ReceiptTextSize.small)} ${getReceiptTextAlignMentHTML(alignment: alignment)}">
+      <p class="my-3 ">$text</p>
+      </div>
+    ''';
+    } else {
+      return '''
+      <div class="sub-header ${getReceiptTextSizeHTML(size: ReceiptTextSize.small)} ${getReceiptTextAlignMentHTML(alignment: alignment)}">
+      <p class="my-3 ">$text</p>
+      </div>
+      ''';
     }
-    return CollectionStyle.textCenter;
   }
 }

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Receipt</title>
+</head>
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+    }
+    h1 {
+        font-size: 1.3rem;
+    }
+    p,
+    .text-normal {
+        font-size: 0.9rem;
+    }
+
+    .text-normal-mm {
+        font-size: 0.7rem;
+        
+    }
+    .container {
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 1.5rem;
+        border: 1px solid #000;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-items: center;
+    }
+    .my-3 {
+        margin: 3px 0;
+    }
+    .my-7 {
+        margin: 3px 0;
+    }
+    .center {
+        text-align: center;
+    }
+    .header {
+        display: flex;
+        flex-direction: column;
+        justify-items: center;
+        align-items: center;
+        margin-top: 20px;
+        margin: 0 auto;
+    }
+    .phones {
+        max-width: 350px;
+        border-bottom: 1px solid #000;
+    }
+    .pb-5 {
+        padding-bottom: 5px;
+    }
+    .py-7 {
+        padding: 5px;
+    }
+    .justify-between {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    .flex-end {
+        display: flex;
+        justify-content: flex-end;
+    }
+    table {
+        width: 100%;
+    }
+    table,
+    th,
+    td {
+        border: 1px solid #000;
+        border-collapse: collapse;
+    }
+    .number {
+        text-align: right;
+    }
+    .text-left {
+        text-align: left;
+    }
+    .text-center {
+        text-align: center;
+    }
+    .table-border-none {
+        border: none;
+    }
+    .count-column {
+        width: 30px;
+        padding: 7px;
+    }
+    .name-column {
+        width: 120px;
+        padding: 7px;
+    }
+    .same-column {
+        width: 70px;
+        padding: 7px;
+    }
+</style>
+<body>
+    <div class="container">
+        <div class="center header">
+            <h1 class="my-3">This is header</h1>
+            <p class="my-3">Tis is para</p>
+            <p class="phones my-3 pb-5">052-2221451, 052-2200944, 09-5048583, 09-785048583, 09-965048583</p>
+            <p class="text-normal">လက်ငင်အရောင်း ( ကျပ် )</p>
+        </div>
+        <div class="justify-between">
+            <div class="text-normal">No.9</div>
+            <div class="text-normal">Date</div>
+            <div class="text-normal">Hour</div>
+        </div>
+        <div class="text-normal py-7 flex-end">ငွေကိုင် - NNH</div>
+        <div>
+            <table>
+                <thead>
+                    <tr>
+                        <th class="text-center name-column">Name</th>
+                        <th class="text-center count-column">Count</th>
+                        <th class="text-center same-column">Sale amount</th>
+                        <th class="text-center same-column">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="text-left name-column">Item 1</td>
+                        <td class="number count-column">10</td>
+                        <td class="number same-column">3000</td>
+                        <td class="number same-column">1000</td>
+                    </tr>
+                    <tr>
+                        <td class="text-left name-column">Item 2</td>
+                        <td class="number count-column">10</td>
+                        <td class="number same-column">3000</td>
+                        <td class="number same-column">1000</td>
+                    </tr>
+                    <tr>
+                        <td class="text-left name-column">Item 3</td>
+                        <td class="number count-column">10</td>
+                        <td class="number same-column">3000</td>
+                        <td class="number same-column">1000</td>
+                    </tr>
+                    <tr>
+                        <td class="text-left name-column">Item 4</td>
+                        <td class="number count-column">10</td>
+                        <td class="number same-column">3000</td>
+                        <td class="number same-column">1000</td>
+                    </tr>
+                    <tr>
+                        <td class="text-left table-border-none text-normal-mm" colspan="2">စုစုပေါင်းငွေ-</td>
+                        <td class="text-left table-border-none" colspan="1">4</td>
+                        <td class="number same-column">3200</td>
+                    </tr>
+                    <tr>
+                        <td class="text-left table-border-none text-normal-mm" colspan="2"></td>
+                        <td class="text-left table-border-none text-normal-mm" colspan="1">ပေးငွေ</td>
+                        <td class="number same-column">3200</td>
+                    </tr>
+                    <tr>
+                        <td class="text-left table-border-none text-normal-mm" colspan="2"></td>
+                        <td class="text-left table-border-none text-normal-mm" colspan="1">ပြန်အမ်းငွေ</td>
+                        <td class="number same-column">3200</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="py-7">
+            <h4 class="text-center">This is none return.</h4>
+            <h4 class="text-center">Thank you.</h4>
+        </div>
+    </div>
+</body>
+</html>

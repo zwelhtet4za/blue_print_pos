@@ -1,6 +1,5 @@
 import 'dart:developer';
 import 'dart:io';
-import 'dart:typed_data';
 import 'dart:ui';
 
 import 'package:blue_print_pos/models/models.dart';
@@ -9,48 +8,31 @@ import 'package:blue_print_pos/scanner/blue_scanner.dart';
 import 'package:blue_thermal_printer/blue_thermal_printer.dart' as blue_thermal;
 import 'package:esc_pos_utils_plus/esc_pos_utils.dart';
 import 'package:flutter/services.dart';
-// import 'package:flutter_blue_plus/flutter_blue_plus.dart' as flutter_blue;
-// import 'package:flutter_blue_plus/gen/flutterblueplus.pb.dart' as proto;
+
 import 'package:image/image.dart' as img;
 import 'package:qr_flutter/qr_flutter.dart';
 
 class BluePrintPos {
   BluePrintPos._() {
     _bluetoothAndroid = blue_thermal.BlueThermalPrinter.instance;
-    // _bluetoothIOS = flutter_blue.FlutterBluePlus.instance;
   }
 
   static BluePrintPos get instance => BluePrintPos._();
 
   static const MethodChannel _channel = MethodChannel('blue_print_pos');
 
-  /// This field is library to handle in Android Platform
   blue_thermal.BlueThermalPrinter? _bluetoothAndroid;
 
-  /// This field is library to handle in iOS Platform
-  // flutter_blue.FlutterBluePlus? _bluetoothIOS;
-
-  /// Bluetooth Device model for iOS
-  // flutter_blue.BluetoothDevice? _bluetoothDeviceIOS;
-
-  /// State to get bluetooth is connected
   bool _isConnected = false;
 
-  /// Getter value [_isConnected]
   bool get isConnected => _isConnected;
 
-  /// Selected device after connecting
   BlueDevice? selectedDevice;
 
-  /// return bluetooth device list, handler Android and iOS in [BlueScanner]
   Future<List<BlueDevice>> scan() async {
     return await BlueScanner.scan();
   }
 
-  /// When connecting, reassign value [selectedDevice] from parameter [device]
-  /// and if connection time more than [timeout]
-  /// will return [ConnectionStatus.timeout]
-  /// When connection success, will return [ConnectionStatus.connected]
   Future<ConnectionStatus> connect(
     BlueDevice device, {
     Duration timeout = const Duration(seconds: 5),
@@ -62,26 +44,7 @@ class BluePrintPos {
             blue_thermal.BluetoothDevice(
                 selectedDevice?.name ?? '', selectedDevice?.address ?? '');
         await _bluetoothAndroid?.connect(bluetoothDeviceAndroid);
-      } 
-      // else if (Platform.isIOS) {
-      //   _bluetoothDeviceIOS = flutter_blue.BluetoothDevice.fromProto(
-      //     proto.BluetoothDevice(
-      //       name: selectedDevice?.name ?? '',
-      //       remoteId: selectedDevice?.address ?? '',
-      //       type: proto.BluetoothDevice_Type.valueOf(selectedDevice?.type ?? 0),
-      //     ),
-      //   );
-      //   final List<flutter_blue.BluetoothDevice> connectedDevices =
-      //       await _bluetoothIOS?.connectedDevices ??
-      //           <flutter_blue.BluetoothDevice>[];
-      //   final int deviceConnectedIndex = connectedDevices
-      //       .indexWhere((flutter_blue.BluetoothDevice bluetoothDevice) {
-      //     return bluetoothDevice.id == _bluetoothDeviceIOS?.id;
-      //   });
-      //   if (deviceConnectedIndex < 0) {
-      //     await _bluetoothDeviceIOS?.connect();
-      //   }
-      // }
+      }
 
       _isConnected = true;
       selectedDevice?.connected = true;
@@ -94,7 +57,6 @@ class BluePrintPos {
     }
   }
 
-  /// To stop communication between bluetooth device and application
   Future<ConnectionStatus> disconnect({
     Duration timeout = const Duration(seconds: 5),
   }) async {
@@ -103,34 +65,26 @@ class BluePrintPos {
         await _bluetoothAndroid?.disconnect();
       }
       _isConnected = false;
-    } 
-    // else if (Platform.isIOS) {
-    //   await _bluetoothDeviceIOS?.disconnect();
-    //   _isConnected = false;
-    // }
+    }
 
     return ConnectionStatus.disconnect;
   }
 
-  /// This method only for print text
-  /// value and styling inside model [ReceiptSectionText].
-  /// [feedCount] to create more space after printing process done
-  /// [useCut] to cut printing process
   Future<void> printReceiptText(
     ReceiptSectionText receiptSectionText, {
     int feedCount = 0,
     bool useCut = false,
     bool useRaster = false,
     double duration = 0,
-    PaperSize paperSize = PaperSize.mm58,
+    required  bool is80,
   }) async {
     final Uint8List bytes = await contentToImage(
-      content: receiptSectionText.content,
+      content: is80 ?  receiptSectionText.content80 : receiptSectionText.content80 ,
       duration: duration,
     );
     final List<int> byteBuffer = await _getBytes(
       bytes,
-      paperSize: paperSize,
+      paperSize: is80 ? PaperSize.mm80 : PaperSize.mm58,
       feedCount: feedCount,
       useCut: useCut,
       useRaster: useRaster,
@@ -138,17 +92,13 @@ class BluePrintPos {
     _printProcess(byteBuffer);
   }
 
-  /// This method only for print image with parameter [bytes] in List<int>
-  /// define [width] to custom width of image, default value is 120
-  /// [feedCount] to create more space after printing process done
-  /// [useCut] to cut printing process
   Future<void> printReceiptImage(
-    List<int> bytes, {
+    Uint8List bytes, {
     int width = 120,
     int feedCount = 0,
     bool useCut = false,
     bool useRaster = false,
-    PaperSize paperSize = PaperSize.mm58,
+    required PaperSize paperSize,
   }) async {
     final List<int> byteBuffer = await _getBytes(
       bytes,
@@ -161,28 +111,24 @@ class BluePrintPos {
     _printProcess(byteBuffer);
   }
 
-  /// This method only for print QR, only pass value on parameter [data]
-  /// define [size] to size of QR, default value is 120
-  /// [feedCount] to create more space after printing process done
-  /// [useCut] to cut printing process
   Future<void> printQR(
     String data, {
     int size = 120,
     int feedCount = 0,
     bool useCut = false,
+    required PaperSize paperSize,
+
   }) async {
-    final List<int> byteBuffer = await _getQRImage(data, size.toDouble());
+    final Uint8List byteBuffer = await _getQRImage(data, size.toDouble());
     printReceiptImage(
       byteBuffer,
       width: size,
       feedCount: feedCount,
+      paperSize: paperSize,
       useCut: useCut,
     );
   }
 
-  /// Reusable method for print text, image or QR based value [byteBuffer]
-  /// Handler Android or iOS will use method writeBytes from ByteBuffer
-  /// But in iOS more complex handler using service and characteristic
   Future<void> _printProcess(List<int> byteBuffer) async {
     try {
       if (selectedDevice == null) {
@@ -195,34 +141,14 @@ class BluePrintPos {
       if (Platform.isAndroid) {
         _bluetoothAndroid?.writeBytes(Uint8List.fromList(byteBuffer));
       }
-      //  else if (Platform.isIOS) {
-      //   final List<flutter_blue.BluetoothService> bluetoothServices =
-      //       await _bluetoothDeviceIOS?.discoverServices() ??
-      //           <flutter_blue.BluetoothService>[];
-      //   final flutter_blue.BluetoothService bluetoothService =
-      //       bluetoothServices.firstWhere(
-      //     (flutter_blue.BluetoothService service) => service.isPrimary,
-      //   );
-      //   final flutter_blue.BluetoothCharacteristic characteristic =
-      //       bluetoothService.characteristics.firstWhere(
-      //     (flutter_blue.BluetoothCharacteristic bluetoothCharacteristic) =>
-      //         bluetoothCharacteristic.properties.write,
-      //   );
-      //   await characteristic.write(byteBuffer, withoutResponse: true);
-      // }
     } on Exception catch (error) {
       print('$runtimeType - Error $error');
     }
   }
 
-  /// This method to convert byte from [data] into as image canvas.
-  /// It will automatically set width and height based [paperSize].
-  /// [customWidth] to print image with specific width
-  /// [feedCount] to generate byte buffer as feed in receipt.
-  /// [useCut] to cut of receipt layout as byte buffer.
   Future<List<int>> _getBytes(
     List<int> data, {
-    PaperSize paperSize = PaperSize.mm58,
+    required PaperSize paperSize,
     int customWidth = 0,
     int feedCount = 0,
     bool useCut = false,
@@ -249,8 +175,6 @@ class BluePrintPos {
     return bytes;
   }
 
-  /// Handler to generate QR image from [text] and set the [size].
-  /// Using painter and convert to [Image] object and return as [Uint8List]
   Future<Uint8List> _getQRImage(String text, double size) async {
     try {
       final Image image = await QrPainter(
