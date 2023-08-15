@@ -1,15 +1,15 @@
 class ReceiptDivider {
   ReceiptDivider({required this.isSolid});
-   final bool isSolid;
+  final bool isSolid;
 
   String get dividerHTML {
-    if(isSolid){
+    if (isSolid) {
       return '''
-      <hr class="divider-solid">
+       <hr style="border-top: 1px solid #000">
       ''';
     } else {
       return '''
-      <hr class="divider-dotted">
+       <hr style="border-top: 1px dotted #000">
       ''';
     }
   }

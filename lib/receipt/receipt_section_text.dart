@@ -4,9 +4,11 @@ import 'package:blue_print_pos/receipt/receipt_image.dart';
 import 'package:blue_print_pos/receipt/receipt_table_header.dart';
 import 'package:blue_print_pos/receipt/receipt_table_row.dart';
 import 'package:blue_print_pos/receipt/receipt_three_cols_text.dart';
+import 'package:blue_print_pos/receipt/receipt_two_col_one_cell.dart';
 import 'package:esc_pos_utils_plus/esc_pos_utils.dart';
 import 'receipt_four_cols_text.dart';
 import 'receipt_line.dart';
+import 'receipt_one_col_one_cell.dart';
 import 'receipt_text.dart';
 import 'receipt_text_left_right.dart';
 import 'receipt_text_enum.dart';
@@ -15,7 +17,9 @@ import 'receipt_title_text.dart';
 class ReceiptSectionText {
   ReceiptSectionText();
 
-  String _data = '';
+  String _headerData = '';
+  String _receiptTableData = '';
+  String _spacerData = '';
 
   String get content80 {
     return '''
@@ -28,7 +32,13 @@ class ReceiptSectionText {
     </head>
     ${CollectionStyle.style80}
     <body>
-    $_data
+    $_headerData
+    <div>
+    <table>
+    $_receiptTableData
+    </table>
+    $_spacerData
+    </div>
     </body>
     </html>
     ''';
@@ -45,7 +55,7 @@ class ReceiptSectionText {
     </head>
     ${CollectionStyle.style58}
     <body>
-    $_data
+    $_headerData
     </body>
     </html>
     ''';
@@ -61,7 +71,7 @@ class ReceiptSectionText {
         alignment: alignment,
         size: is80 ? ReceiptTextSize.normal : ReceiptTextSize.small);
 
-    _data += receiptTitleText.titleHtml;
+    _headerData += receiptTitleText.titleHtml;
   }
 
   void addText(
@@ -72,25 +82,20 @@ class ReceiptSectionText {
         text: text,
         paperSize: is80 ? PaperSize.mm80 : PaperSize.mm58,
         alignment: alignment);
-    _data += receiptText.html;
+    _headerData += receiptText.html;
   }
 
-  void addtableHeader({required bool is80}) {
-    final ReceiptTableHeader tableHeader = ReceiptTableHeader(
-        itemName: 'ကုန်ပစ္စည်းအမည်',
-        qty: 'အမည်',
-        salesPrice: 'ရောင်းစျေး',
-        total: 'ငွေပေါင်း');
-    _data += tableHeader.tableHeaderHtml;
-  }
-
-  void add3Cols({required bool is80}) {
+  void add3Cols(
+      {required bool is80,
+      required String firstCol,
+      required String secondCol,
+      required String thirdCol}) {
     final Receipt3ColsText receipt3colsText = Receipt3ColsText(
-        firstCol: 'firstCol',
-        secondCol: 'secondCol',
-        thirdCol: 'thirdCol',
+        firstCol: firstCol,
+        secondCol: secondCol,
+        thirdCol: thirdCol,
         properties: 'justify-between');
-    _data += receipt3colsText.html;
+    _headerData += receipt3colsText.html;
   }
 
   void add4Cols({required bool is80}) {
@@ -100,18 +105,58 @@ class ReceiptSectionText {
         thirdCol: 'thirdCol',
         fourthCol: 'fourthCol',
         properties: 'justify-between');
-    _data += receipt4colsText.html;
+    _headerData += receipt4colsText.html;
   }
 
-  void addTableRow(
-      {required String itemName,
-      required String qty,
-      required String salePrice,
-      required bool is80,
-      required String totalPrice}) {
+  void addTableHeader({
+    required String firstColHeader,
+    required String secondColHeader,
+    required String thirdColHeader,
+    required String fourthColHeader,
+  }) {
+    final ReceiptTableHeader tableHeader = ReceiptTableHeader(
+      firstColHeader: firstColHeader,
+      secondColHeader: secondColHeader,
+      thirdColHeader: thirdColHeader,
+      fourthColHeader: fourthColHeader,
+    );
+    _receiptTableData += tableHeader.tableHeaderHtml;
+  }
+
+  void addTableRow({
+    required String firstCellValue,
+    required String secondCellValue,
+    required String thirdCellValue,
+    required String fourthCellValue,
+  }) {
     final ReceiptTableRow tableRow = ReceiptTableRow(
-        itemName: itemName, qty: qty, salesPrice: salePrice, total: totalPrice);
-    _data += tableRow.tableRowHtml;
+        firstCellValue: firstCellValue,
+        secondCellValue: secondCellValue,
+        thirdCellValue: thirdCellValue,
+        fourthCellValue: fourthCellValue);
+    _receiptTableData += tableRow.tableRowHtml;
+  }
+
+  void add2Col1CellTableRow({
+    required String firstValue,
+    required String secondValue,
+    required String totalPrice,
+  }) {
+    final ReceiptTotalTwoColsOneCell twoColOneCellRow =
+        ReceiptTotalTwoColsOneCell(
+            firstValue: firstValue,
+            secondValue: secondValue,
+            totalPrice: totalPrice);
+    _receiptTableData += twoColOneCellRow.twoColsOneCellHTML;
+  }
+
+  void add1Col1CellTableRow({
+    required String value,
+    required String totalPrice,
+  }) {
+    final ReceiptTotalOneColOneCell twoColOneCellRow =
+        ReceiptTotalOneColOneCell(value: value, totalPrice: totalPrice);
+    _receiptTableData += twoColOneCellRow.twoColsOneCellHTML;
   }
 
   void addLeftRightText(String leftText, String rightText,
@@ -122,17 +167,17 @@ class ReceiptSectionText {
       leftText: leftText,
       rightText: rightText,
     );
-    _data += leftRightText.html;
+    _headerData += leftRightText.html;
   }
 
   void addSpacer({int count = 1, bool useDashed = false}) {
     final ReceiptLine line = ReceiptLine(count: count, useDashed: useDashed);
-    _data += line.html;
+    _spacerData += line.html;
   }
 
   void divider({required bool isSolid}) {
     final ReceiptDivider divider = ReceiptDivider(isSolid: isSolid);
-    _data += divider.dividerHTML;
+    _headerData += divider.dividerHTML;
   }
 
   void addImage(String base64,
@@ -144,6 +189,6 @@ class ReceiptSectionText {
       width: width,
       alignment: alignment,
     );
-    _data += image.html;
+    _headerData += image.html;
   }
 }

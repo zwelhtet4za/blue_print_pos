@@ -63,13 +63,6 @@ class CollectionStyle {
         flex-direction: column;
         justify-items: left;
     }
-    .divider-solid {
-        border-top: 3px solid #bbb;
-    }
-    
-    .divider-dotted {
-        border-top: 3px dotted #bbb;
-    }
     .phones {
         max-width: 350px;
         border-bottom: 1px solid #000;
@@ -90,13 +83,19 @@ class CollectionStyle {
         justify-content: flex-end;
     }
     table {
-        width: 100%;
+        width: 95%;
+        margin: 5px;
     }
     table,
-    th,
+    th {
+      border: 1px solid #000;
+      border-collapse: collapse;
+    }
     td {
-        border: 1px solid #000;
-        border-collapse: collapse;
+      border-right: 1px solid #000;
+      border-left: 1px solid #000;
+      border-collapse: collapse;
+      margin: 3px
     }
     .number {
         text-align: right;
@@ -110,17 +109,17 @@ class CollectionStyle {
     .table-border-none {
         border: none;
     }
-    .count-column {
+    .first-table-cell {
+        width: 90px;
+        padding: 5px;
+    }
+    .second-table_cell {
         width: 30px;
-        padding: 7px;
+        padding: 5px;
     }
-    .name-column {
-        width: 120px;
-        padding: 7px;
-    }
-    .same-column {
-        width: 70px;
-        padding: 7px;
+    .custom-table-cell {
+        width: 50px;
+        padding: 5px;
     }
     </style>
     ''';

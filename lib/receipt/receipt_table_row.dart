@@ -1,32 +1,23 @@
 class ReceiptTableRow {
   ReceiptTableRow({
-    required this.itemName,
-    required this.qty,
-    required this.salesPrice,
-    required this.total,
+    required this.firstCellValue,
+    required this.secondCellValue,
+    required this.thirdCellValue,
+    required this.fourthCellValue,
   });
-
-  final String itemName;
-  final String qty;
-  final String salesPrice;
-  final String total;
+  final String firstCellValue;
+  final String secondCellValue;
+  final String thirdCellValue;
+  final String fourthCellValue;
 
   String get tableRowHtml => '''
-     <table class="table">
-    <colgroup>
-      <col style="width: 40%;">
-      <col style="width: 10%;">
-      <col style="width: 25%;">
-      <col style="width: 25%;">
-    </colgroup>
-    <tbody>
-      <tr>
-        <td style="padding: 10px;">$itemName</td>
-        <td style="padding: 10px;">$qty</td>
-        <td style="padding: 10px;">$salesPrice</td>
-        <td style="padding: 10px;">$total</td>
-      </tr>
-    </tbody>
-  </table>
+              <tbody>
+                  <tr>
+                   <td class="text-center first-table-cell">$firstCellValue</td>
+                   <td class="text-center second-table_cell">$secondCellValue</td>
+                   <td class="text-center custom-table-cell">$thirdCellValue</td>
+                   <td class="text-center custom-table-cell">$fourthCellValue</td> 
+                  </tr> 
+              </tbody>
     ''';
 }

@@ -1,32 +1,23 @@
 class ReceiptTableHeader {
   ReceiptTableHeader({
-    required this.itemName,
-    required this.qty,
-    required this.salesPrice,
-    required this.total,
+    required this.firstColHeader,
+    required this.secondColHeader,
+    required this.thirdColHeader,
+    required this.fourthColHeader,
   });
-
-  final String itemName;
-  final String qty;
-  final String salesPrice;
-  final String total;
+  final String firstColHeader;
+  final String secondColHeader;
+  final String thirdColHeader;
+  final String fourthColHeader;
 
   String get tableHeaderHtml => '''
-    <table class="table">
-    <colgroup>
-      <col style="width: 40%;">
-      <col style="width: 10%;">
-      <col style="width: 25%;">
-      <col style="width: 25%;">
-    </colgroup>
-    <tbody>
-      <tr>
-        <td style="padding: 10px;  border: 1px solid #333;">$itemName</td>
-        <td style="padding: 10px;  border: 1px solid #333;">$qty</td>
-        <td style="padding: 10px;  border: 1px solid #333;">$salesPrice</td>
-        <td style="padding: 10px;  border: 1px solid #333;">$total</td>
-      </tr>
-    </tbody>
-  </table>
+              <theader>
+                    <tr>
+                        <th class="text-center first-table-cell" style="font-size: 15px;">$firstColHeader</th>
+                        <th class="text-center second-table_cell" style="font-size: 15px;">$secondColHeader</th>
+                        <th class="text-center custom-table-cell" style="font-size: 15px;">$thirdColHeader</th>
+                        <th class="text-center custom-table-cell" style="font-size: 15px;">$fourthColHeader</th>
+                    </tr>
+              </theader>
     ''';
 }
