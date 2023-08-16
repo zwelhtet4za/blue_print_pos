@@ -13,10 +13,12 @@ class CollectionStyle {
     }
     p,
     .text-small{
-      font-size: 0.6rem;
+      font-size: 0.5rem;
+      font-weight: bold;
     }
     .text-normal{
-        font-size: 1.0rem;
+      font-size: 1.0rem;
+      font-weight: bold;
     }
     .text-large {
       font-size: 1.2rem;
@@ -35,12 +37,13 @@ class CollectionStyle {
     }
     .container {
         max-width: 400px;
-        margin: 0 auto;
+        margin: 5 auto;
         padding: 1.5rem;
         height: 100vh;
         display: flex;
         flex-direction: column;
         justify-items: center;
+        font-weight: bold;
     }
     .my-3 {
         margin: 3px 0;
@@ -57,6 +60,7 @@ class CollectionStyle {
         justify-items: center;
         margin-top: 20px;
         margin: 0 auto;
+        font-weight: bold;
     }
     .sub-header {
         display: flex;
@@ -83,31 +87,35 @@ class CollectionStyle {
         justify-content: flex-end;
     }
     table {
-        width: 95%;
-        margin: 5px;
+        width: 97%;
+        padding : 0px 2px 0px 2px;
     }
     table,
     th {
       border: 1px solid #000;
       border-collapse: collapse;
+      font-weight: bold;
     }
     td {
       border-right: 1px solid #000;
       border-left: 1px solid #000;
       border-collapse: collapse;
-      margin: 3px
+      font-weight: bold;
     }
     .number {
         text-align: right;
     }
     .text-left {
         text-align: left;
+        font-weight: bold;
     }
     .text-center {
         text-align: center;
+        font-weight: bold;
     }
     .table-border-none {
         border: none;
+        font-weight: bold;
     }
     .first-table-cell {
         width: 90px;

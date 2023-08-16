@@ -19,7 +19,7 @@ class ReceiptSectionText {
 
   String _headerData = '';
   String _receiptTableData = '';
-  String _spacerData = '';
+  String _footerData = '';
 
   String get content80 {
     return '''
@@ -37,7 +37,7 @@ class ReceiptSectionText {
     <table>
     $_receiptTableData
     </table>
-    $_spacerData
+    $_footerData
     </div>
     </body>
     </html>
@@ -84,6 +84,16 @@ class ReceiptSectionText {
         alignment: alignment);
     _headerData += receiptText.html;
   }
+  void addFooterText(
+      {required String text,
+      required bool is80,
+      required ReceiptAlignment alignment}) {
+    final ReceiptText receiptText = ReceiptText(
+        text: text,
+        paperSize: is80 ? PaperSize.mm80 : PaperSize.mm58,
+        alignment: alignment);
+    _footerData += receiptText.html;
+  }
 
   void add3Cols(
       {required bool is80,
@@ -94,16 +104,24 @@ class ReceiptSectionText {
         firstCol: firstCol,
         secondCol: secondCol,
         thirdCol: thirdCol,
+        paperSize: is80 ? PaperSize.mm80 : PaperSize.mm58,
         properties: 'justify-between');
     _headerData += receipt3colsText.html;
   }
 
-  void add4Cols({required bool is80}) {
+  void add4Cols({
+    required bool is80,
+    required String firstCol,
+    required String secondCol,
+    required String thirdCol,
+    required String fourthCol,
+  }) {
     final Receipt4ColsText receipt4colsText = Receipt4ColsText(
-        firstCol: 'firstCol',
-        secondCol: 'secondCol',
-        thirdCol: 'thirdCol',
-        fourthCol: 'fourthCol',
+        firstCol: firstCol,
+        secondCol: secondCol,
+        thirdCol: thirdCol,
+        fourthCol: fourthCol,
+        paperSize: is80 ? PaperSize.mm80 : PaperSize.mm58,
         properties: 'justify-between');
     _headerData += receipt4colsText.html;
   }
@@ -166,13 +184,14 @@ class ReceiptSectionText {
     final ReceiptTextLeftRight leftRightText = ReceiptTextLeftRight(
       leftText: leftText,
       rightText: rightText,
+      paperSize: is80 ? PaperSize.mm80 : PaperSize.mm58,
     );
     _headerData += leftRightText.html;
   }
 
   void addSpacer({int count = 1, bool useDashed = false}) {
     final ReceiptLine line = ReceiptLine(count: count, useDashed: useDashed);
-    _spacerData += line.html;
+    _footerData += line.html;
   }
 
   void divider({required bool isSolid}) {

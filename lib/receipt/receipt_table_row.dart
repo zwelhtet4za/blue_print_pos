@@ -13,10 +13,10 @@ class ReceiptTableRow {
   String get tableRowHtml => '''
               <tbody>
                   <tr>
-                   <td class="text-center first-table-cell">$firstCellValue</td>
+                   <td class="text-left first-table-cell">$firstCellValue</td>
                    <td class="text-center second-table_cell">$secondCellValue</td>
-                   <td class="text-center custom-table-cell">$thirdCellValue</td>
-                   <td class="text-center custom-table-cell">$fourthCellValue</td> 
+                   <td class="number custom-table-cell">$thirdCellValue</td>
+                   <td class="number custom-table-cell">$fourthCellValue</td> 
                   </tr> 
               </tbody>
     ''';

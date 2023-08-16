@@ -9,8 +9,8 @@ class ReceiptTotalOneColOneCell {
   String get twoColsOneCellHTML => '''
               <tbody>
                   <tr>
-                   <td class="text-center first-table-cell" colspan="3" style="border: 1px solid #000;">$value</td>
-                   <td class="text-center custom-table-cell" style="border: 1px solid #000;" colspan="1">$totalPrice</td>
+                   <td class="text-center first-table-cell" colspan="3" style="border: 1px solid #000; font-size: 15px;">$value</td>
+                   <td class="number custom-table-cell" style="border: 1px solid #000; font-size: 15px;" colspan="1">$totalPrice</td>
                   </tr> 
               </tbody>
     ''';
