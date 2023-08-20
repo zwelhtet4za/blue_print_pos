@@ -67,7 +67,7 @@ class BluePrintPos {
       _isConnected = false;
     }
 
-    return ConnectionStatus.disconnect;
+    return ConnectionStatus.disconnected;
   }
 
   Future<void> printReceiptText(
