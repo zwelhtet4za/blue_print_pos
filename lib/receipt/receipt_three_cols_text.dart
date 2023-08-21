@@ -23,8 +23,8 @@ class Receipt3ColsText {
         return '''
       <div style="display: flex; flex-direction: row;
         justify-content:  flex-start;">
-            <div class="text-normal" style="flex: 0 0 auto;">$firstCol</div>
-            <div class="text-normal" style="flex: 1; text-align: left; margin-left: 20px;">$secondCol</div>
+            <div class="text-normal" style="flex: 1 auto;">$firstCol</div>
+            <div class="text-normal" style="flex: 7; text-align: left; margin-left: 20px;">$secondCol</div>
             <div class="text-normal" style="flex: 0 0 auto;">$thirdCol</div>
       </div>
         ''';
