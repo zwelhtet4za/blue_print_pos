@@ -1,4 +1,5 @@
 import 'package:blue_print_pos/receipt/collection_style.dart';
+import 'package:blue_print_pos/receipt/receipt_add_on_2_cols_text.dart';
 import 'package:blue_print_pos/receipt/receipt_divider.dart';
 import 'package:blue_print_pos/receipt/receipt_image.dart';
 import 'package:blue_print_pos/receipt/receipt_table_header.dart';
@@ -84,6 +85,7 @@ class ReceiptSectionText {
         alignment: alignment);
     _headerData += receiptText.html;
   }
+
   void addFooterText(
       {required String text,
       required bool is80,
@@ -99,14 +101,29 @@ class ReceiptSectionText {
       {required bool is80,
       required String firstCol,
       required String secondCol,
+      bool? secondColAlignLeft,
       required String thirdCol}) {
     final Receipt3ColsText receipt3colsText = Receipt3ColsText(
         firstCol: firstCol,
         secondCol: secondCol,
         thirdCol: thirdCol,
+        secondColAlignLeft: secondColAlignLeft,
         paperSize: is80 ? PaperSize.mm80 : PaperSize.mm58,
         properties: 'justify-between');
     _headerData += receipt3colsText.html;
+  }
+
+  void addAddon2Cols({
+    required bool is80,
+    required String firstCol,
+    required String secondCol,
+  }) {
+    final ReceiptAddon2ColsText receiptAddon2ColsText = ReceiptAddon2ColsText(
+        firstCol: firstCol,
+        secondCol: secondCol,
+        paperSize: is80 ? PaperSize.mm80 : PaperSize.mm58,
+        properties: 'justify-between');
+    _headerData += receiptAddon2ColsText.html;
   }
 
   void add4Cols({

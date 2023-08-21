@@ -7,7 +7,8 @@ class Receipt4ColsText {
     required this.thirdCol,
     required this.fourthCol,
     required this.properties,
-    required this.paperSize
+    required this.paperSize,
+    this.secondColAlignLeft,
   });
 
   final String firstCol;
@@ -15,12 +16,21 @@ class Receipt4ColsText {
   final String thirdCol;
   final String fourthCol;
   final PaperSize paperSize;
-
+  bool? secondColAlignLeft;
 
   final String properties;
 
   String get html {
     if (paperSize == PaperSize.mm80) {
+      if (secondColAlignLeft != null) {
+        return '''
+<div style="display: flex; flex-direction: row; justify-content: flex-start;">
+    <div class="text-normal" style="flex: 0;">$firstCol</div>
+    <div class="text-normal" style="flex: 1; text-align: left; margin-left: 50px;">$secondCol</div>
+    <div class="text-normal" style="flex: 0;">$thirdCol</div>
+    <div class="text-normal" style="flex: 1; margin-left: 50px;">$fourthCol</div>
+</div>''';
+      }
       return '''
       <div class="$properties">
             <div class="text-normal">$firstCol</div>
@@ -31,7 +41,17 @@ class Receipt4ColsText {
         </div>
     ''';
     } else if (paperSize == PaperSize.mm58) {
-         return '''
+      return '''
+      <div class="$properties">
+            <div class="text-normal">$firstCol</div>
+            <div class="text-normal">$secondCol</div>
+            <div class="text-normal">$thirdCol</div>
+            <div class="text-normal">$fourthCol</div>
+
+        </div>
+    ''';
+    } else {
+      return '''
       <div class="$properties">
             <div class="text-normal">$firstCol</div>
             <div class="text-normal">$secondCol</div>
@@ -41,16 +61,5 @@ class Receipt4ColsText {
         </div>
     ''';
     }
-  else {
-     return '''
-      <div class="$properties">
-            <div class="text-normal">$firstCol</div>
-            <div class="text-normal">$secondCol</div>
-            <div class="text-normal">$thirdCol</div>
-            <div class="text-normal">$fourthCol</div>
-
-        </div>
-    ''';
   }
-}
 }
