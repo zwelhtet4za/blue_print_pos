@@ -5,13 +5,11 @@ class ReceiptAddon2ColsText {
     required this.firstCol,
     required this.secondCol,
     required this.paperSize,
-    this.secondColAlignLeft,
     required this.properties,
   });
 
   final String firstCol;
   final String secondCol;
-  bool? secondColAlignLeft;
   final PaperSize paperSize;
   final String properties;
 
