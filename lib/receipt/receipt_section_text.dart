@@ -117,10 +117,12 @@ class ReceiptSectionText {
     required bool is80,
     required String firstCol,
     required String secondCol,
+    bool? secondColAlignLeft,
   }) {
     final ReceiptAddon2ColsText receiptAddon2ColsText = ReceiptAddon2ColsText(
         firstCol: firstCol,
         secondCol: secondCol,
+        secondColAlignLeft: secondColAlignLeft,
         paperSize: is80 ? PaperSize.mm80 : PaperSize.mm58,
         properties: 'justify-between');
     _headerData += receiptAddon2ColsText.html;
