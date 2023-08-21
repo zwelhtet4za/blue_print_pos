@@ -57,6 +57,9 @@ class ReceiptSectionText {
     ${CollectionStyle.style58}
     <body>
     $_headerData
+    <div>
+    $_footerData
+    </div>
     </body>
     </html>
     ''';
@@ -65,23 +68,27 @@ class ReceiptSectionText {
   void addTitleText(
       {required String text,
       required bool is80,
-      required ReceiptAlignment alignment}) {
+      required ReceiptAlignment alignment,
+      required ReceiptTextSize size}) {
     final ReceiptTitleText receiptTitleText = ReceiptTitleText(
         text: text,
         paperSize: is80 ? PaperSize.mm80 : PaperSize.mm58,
         alignment: alignment,
-        size: is80 ? ReceiptTextSize.normal : ReceiptTextSize.small);
+        size: size);
 
     _headerData += receiptTitleText.titleHtml;
   }
 
-  void addText(
-      {required String text,
-      required bool is80,
-      required ReceiptAlignment alignment}) {
+  void addText({
+    required String text,
+    required bool is80,
+    required ReceiptAlignment alignment,
+    required ReceiptTextSize size,
+  }) {
     final ReceiptText receiptText = ReceiptText(
         text: text,
         paperSize: is80 ? PaperSize.mm80 : PaperSize.mm58,
+        size: size,
         alignment: alignment);
     _headerData += receiptText.html;
   }
@@ -89,10 +96,12 @@ class ReceiptSectionText {
   void addFooterText(
       {required String text,
       required bool is80,
-      required ReceiptAlignment alignment}) {
+      required ReceiptAlignment alignment,
+      required ReceiptTextSize size}) {
     final ReceiptText receiptText = ReceiptText(
         text: text,
         paperSize: is80 ? PaperSize.mm80 : PaperSize.mm58,
+        size: size,
         alignment: alignment);
     _footerData += receiptText.html;
   }
@@ -101,6 +110,7 @@ class ReceiptSectionText {
       {required bool is80,
       required String firstCol,
       required String secondCol,
+      required ReceiptTextSize size,
       bool? secondColAlignLeft,
       bool? underLine,
       required String thirdCol}) {
@@ -110,19 +120,21 @@ class ReceiptSectionText {
         thirdCol: thirdCol,
         underLine: underLine,
         secondColAlignLeft: secondColAlignLeft,
+        size: size,
         paperSize: is80 ? PaperSize.mm80 : PaperSize.mm58,
         properties: 'justify-between');
     _headerData += receipt3colsText.html;
   }
 
-  void addAddon2Cols({
-    required bool is80,
-    required String firstCol,
-    required String secondCol,
-  }) {
+  void addAddon2Cols(
+      {required bool is80,
+      required String firstCol,
+      required String secondCol,
+      required ReceiptTextSize size}) {
     final ReceiptAddon2ColsText receiptAddon2ColsText = ReceiptAddon2ColsText(
         firstCol: firstCol,
         secondCol: secondCol,
+        size: size,
         paperSize: is80 ? PaperSize.mm80 : PaperSize.mm58,
         properties: 'justify-between');
     _headerData += receiptAddon2ColsText.html;
@@ -134,6 +146,7 @@ class ReceiptSectionText {
     required String secondCol,
     required String thirdCol,
     required String fourthCol,
+    required ReceiptTextSize size,
     bool? secondColAlignLeft,
   }) {
     final Receipt4ColsText receipt4colsText = Receipt4ColsText(
@@ -141,6 +154,7 @@ class ReceiptSectionText {
         secondCol: secondCol,
         thirdCol: thirdCol,
         fourthCol: fourthCol,
+        size: size,
         secondColAlignLeft: secondColAlignLeft,
         paperSize: is80 ? PaperSize.mm80 : PaperSize.mm58,
         properties: 'justify-between');
@@ -198,13 +212,15 @@ class ReceiptSectionText {
     _receiptTableData += twoColOneCellRow.twoColsOneCellHTML;
   }
 
-  void addLeftRightText(String leftText, String rightText,
-      {ReceiptTextSize leftSize = ReceiptTextSize.normal,
-      ReceiptTextSize rightSize = ReceiptTextSize.normal,
+  void addLeftRightText(
+      {required String leftText,
+      required String rightText,
+      required ReceiptTextSize size,
       required bool is80}) {
     final ReceiptTextLeftRight leftRightText = ReceiptTextLeftRight(
       leftText: leftText,
       rightText: rightText,
+      size: size,
       properties: 'justify-between',
       paperSize: is80 ? PaperSize.mm80 : PaperSize.mm58,
     );

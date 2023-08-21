@@ -4,29 +4,30 @@ import 'receipt_text_enum.dart';
 
 class ReceiptText {
   ReceiptText(
-      {required this.text, required this.paperSize, required this.alignment});
+      {required this.text, required this.paperSize, required this.size, required this.alignment});
 
   final String text;
   final PaperSize paperSize;
   final ReceiptAlignment alignment;
+  final ReceiptTextSize size;
 
   String get html {
     if (paperSize == PaperSize.mm80) {
       return '''
-      <div class="sub-header ${getReceiptTextSizeHTML(size: ReceiptTextSize.normal)} ${getReceiptTextAlignMentHTML(alignment: alignment)}">
+      <div class="sub-header ${getReceiptTextSizeHTML(size: size)} ${getReceiptTextAlignMentHTML(alignment: alignment)}">
       <span class="my-3 ">$text</span>
       </div>
     ''';
     } else if (paperSize == PaperSize.mm58) {
       return '''
-      <div class="sub-header ${getReceiptTextSizeHTML(size: ReceiptTextSize.small)} ${getReceiptTextAlignMentHTML(alignment: alignment)}">
-      <p class="my-3 ">$text</p>
+      <div class="sub-header ${getReceiptTextSizeHTML(size: size)} ${getReceiptTextAlignMentHTML(alignment: alignment)}">
+      <p class="my-3" style="font-weight: bold;">$text</p>
       </div>
     ''';
     } else {
       return '''
-      <div class="sub-header ${getReceiptTextSizeHTML(size: ReceiptTextSize.small)} ${getReceiptTextAlignMentHTML(alignment: alignment)}">
-      <p class="my-3 ">$text</p>
+      <div class="sub-header ${getReceiptTextSizeHTML(size: size)} ${getReceiptTextAlignMentHTML(alignment: alignment)}">
+      <p class="my-3" style="font-weight: bold;">$text</p>
       </div>
       ''';
     }

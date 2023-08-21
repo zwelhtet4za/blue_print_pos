@@ -51,9 +51,6 @@ class CollectionStyle {
     .my-7 {
         margin: 3px 0;
     }
-    .center {
-        text-align: center;
-    }
     .header {
         display: flex;
         flex-direction: column;
@@ -168,7 +165,6 @@ class CollectionStyle {
       text-align:right;
     }
     .container {
-        max-width: 400px;
         margin: 5 auto;
         padding: 1.5rem;
         height: 100vh;
