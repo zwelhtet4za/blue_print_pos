@@ -102,11 +102,13 @@ class ReceiptSectionText {
       required String firstCol,
       required String secondCol,
       bool? secondColAlignLeft,
+      bool? underLine,
       required String thirdCol}) {
     final Receipt3ColsText receipt3colsText = Receipt3ColsText(
         firstCol: firstCol,
         secondCol: secondCol,
         thirdCol: thirdCol,
+        underLine: underLine,
         secondColAlignLeft: secondColAlignLeft,
         paperSize: is80 ? PaperSize.mm80 : PaperSize.mm58,
         properties: 'justify-between');
@@ -139,7 +141,7 @@ class ReceiptSectionText {
         secondCol: secondCol,
         thirdCol: thirdCol,
         fourthCol: fourthCol,
-        secondColAlignLeft: secondColAlignLeft ,
+        secondColAlignLeft: secondColAlignLeft,
         paperSize: is80 ? PaperSize.mm80 : PaperSize.mm58,
         properties: 'justify-between');
     _headerData += receipt4colsText.html;
@@ -203,14 +205,20 @@ class ReceiptSectionText {
     final ReceiptTextLeftRight leftRightText = ReceiptTextLeftRight(
       leftText: leftText,
       rightText: rightText,
+      properties: 'justify-between',
       paperSize: is80 ? PaperSize.mm80 : PaperSize.mm58,
     );
     _headerData += leftRightText.html;
   }
 
-  void addSpacer({int count = 1, bool useDashed = false}) {
+  void addFooterSpacer({int count = 1, bool useDashed = false}) {
     final ReceiptLine line = ReceiptLine(count: count, useDashed: useDashed);
     _footerData += line.html;
+  }
+
+  void addSpacer({int count = 1, bool useDashed = false}) {
+    final ReceiptLine line = ReceiptLine(count: count, useDashed: useDashed);
+    _headerData += line.html;
   }
 
   void divider({required bool isSolid}) {
