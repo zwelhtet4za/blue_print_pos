@@ -32,14 +32,14 @@ class Receipt3ColsText {
             <div class="${getReceiptTextSizeHTML(size: size)}" style="flex: 7; text-align: left; margin-left: 20px;">$secondCol</div>
             <div class="${getReceiptTextSizeHTML(size: size)}" style="flex: 0 0 auto;">$thirdCol</div>
       </div>
-        ''';
+        '''; 
       } else {
         if (underLine == true) {
           return '''
       <div class="$properties">
             <div class="${getReceiptTextSizeHTML(size: size)}" style="text-decoration: underline; flex: 2">$firstCol</div>
             <div class="${getReceiptTextSizeHTML(size: size)}" style="text-decoration: underline; flex: 1">$secondCol</div>
-            <div class="${getReceiptTextSizeHTML(size: size)}" style="text-decoration: underline; flex: 1">$thirdCol</div>
+            <div class="${getReceiptTextSizeHTML(size: size)}" style="text-decoration: underline; flex: 0">$thirdCol</div>
       </div>
     ''';
         } else {
@@ -47,7 +47,7 @@ class Receipt3ColsText {
       <div class="$properties">
             <div class="${getReceiptTextSizeHTML(size: size)}" style="flex: 2">$firstCol</div>
             <div class="${getReceiptTextSizeHTML(size: size)}" style="flex: 1">$secondCol</div>
-            <div class="${getReceiptTextSizeHTML(size: size)}" style="flex: 1">$thirdCol</div>
+            <div class="${getReceiptTextSizeHTML(size: size)}" style="flex: 0">$thirdCol</div>
       </div>
     ''';
         }
@@ -57,7 +57,7 @@ class Receipt3ColsText {
       <div class="$properties">
             <div class="${getReceiptTextSizeHTML(size: size)}" style="font-weight: bold;flex: 2">$firstCol</div>
             <div class="${getReceiptTextSizeHTML(size: size)}" style="font-weight: bold;flex: 1">$secondCol</div>
-            <div class="${getReceiptTextSizeHTML(size: size)}" style="font-weight: bold;flex: 1">$thirdCol</div>
+            <div class="${getReceiptTextSizeHTML(size: size)}" style="font-weight: bold;flex: 0">$thirdCol</div>
       </div>
     ''';
     } else {
@@ -65,7 +65,7 @@ class Receipt3ColsText {
       <div class="$properties">
             <div class="${getReceiptTextSizeHTML(size: size)}" style="font-weight: bold; flex: 2">$firstCol</div>
             <div class="${getReceiptTextSizeHTML(size: size)}" style="font-weight: bold; flex: 1">$secondCol</div>
-            <div class="${getReceiptTextSizeHTML(size: size)}" style="font-weight: bold; flex: 1">$thirdCol</div>
+            <div class="${getReceiptTextSizeHTML(size: size)}" style="font-weight: bold; flex: 0">$thirdCol</div>
         </div>
     ''';
     }
