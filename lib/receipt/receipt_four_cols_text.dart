@@ -25,21 +25,12 @@ class Receipt4ColsText {
 
   String get html {
     if (paperSize == PaperSize.mm80) {
-      if (secondColAlignLeft != null) {
-        return '''
-<div style="display: flex; flex-direction: row; justify-content: flex-start;">
-    <div class="${getReceiptTextSizeHTML(size: size)}" style="flex: 0;">$firstCol</div>
-    <div class="${getReceiptTextSizeHTML(size: size)}" style="flex: 1; text-align: left; margin-left: 50px;">$secondCol</div>
-    <div class="${getReceiptTextSizeHTML(size: size)}" style="flex: 0;">$thirdCol</div>
-    <div class="${getReceiptTextSizeHTML(size: size)}" style="flex: 1; margin-left: 50px;">$fourthCol</div>
-</div>''';
-      }
       return '''
       <div class="$properties">
             <div class="${getReceiptTextSizeHTML(size: size)}" style="flex: 1;">$firstCol</div>
-            <div class="${getReceiptTextSizeHTML(size: size)}" style="flex: 1;">$secondCol</div>
+            <div class="${getReceiptTextSizeHTML(size: size)}" style="flex: 3; margin-left:10px; margin-right:10px">$secondCol</div>
             <div class="${getReceiptTextSizeHTML(size: size)}" style="flex: 1;">$thirdCol</div>
-            <div class="${getReceiptTextSizeHTML(size: size)}" style="flex: 1;">$fourthCol</div>
+            <div class="${getReceiptTextSizeHTML(size: size)}" style="flex: 2; text-align: right;">$fourthCol</div>
 
         </div>
     ''';
@@ -49,7 +40,7 @@ class Receipt4ColsText {
             <div class="${getReceiptTextSizeHTML(size: size)}" style="font-weight: bold; flex: 1">$firstCol</div>
             <div class="${getReceiptTextSizeHTML(size: size)}" style="font-weight: bold; flex: 1" >$secondCol</div>
             <div class="${getReceiptTextSizeHTML(size: size)}" style="font-weight: bold; flex: 1">$thirdCol</div>
-            <div class="${getReceiptTextSizeHTML(size: size)}" style="font-weight: bold; flex: 1">$fourthCol</div>
+            <div class="${getReceiptTextSizeHTML(size: size)}" style="font-weight: bold; flex: 2;text-align: right;">$fourthCol</div>
 
         </div>
     ''';
@@ -59,7 +50,7 @@ class Receipt4ColsText {
             <div class="${getReceiptTextSizeHTML(size: size)}" style="font-weight: bold; flex: 1">$firstCol</div>
             <div class="${getReceiptTextSizeHTML(size: size)}" style="font-weight: bold; flex: 1">$secondCol</div>
             <div class="${getReceiptTextSizeHTML(size: size)}" style="font-weight: bold; flex: 1">$thirdCol</div>
-            <div class="${getReceiptTextSizeHTML(size: size)}" style="font-weight: bold; flex: 1">$fourthCol</div>
+            <div class="${getReceiptTextSizeHTML(size: size)}" style="font-weight: bold; flex: 2;text-align: right;">$fourthCol</div>
 
         </div>
     ''';
