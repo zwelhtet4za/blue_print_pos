@@ -55,17 +55,17 @@ class Receipt3ColsText {
     } else if (paperSize == PaperSize.mm58) {
       return '''
       <div class="$properties">
-            <div class="${getReceiptTextSizeHTML(size: size)}" style="font-weight: bold;flex: 2">$firstCol</div>
+            <div class="${getReceiptTextSizeHTML(size: size)}" style="font-weight: bold;flex: 3">$firstCol</div>
             <div class="${getReceiptTextSizeHTML(size: size)}" style="font-weight: bold;flex: 1">$secondCol</div>
-            <div class="${getReceiptTextSizeHTML(size: size)}" style="font-weight: bold;flex: 0; text-align: right;">$thirdCol</div>
+            <div class="${getReceiptTextSizeHTML(size: size)}" style="font-weight: bold;flex: 2; text-align: right;">$thirdCol</div>
       </div>
     ''';
     } else {
       return '''
       <div class="$properties">
-            <div class="${getReceiptTextSizeHTML(size: size)}" style="font-weight: bold; flex: 2">$firstCol</div>
+            <div class="${getReceiptTextSizeHTML(size: size)}" style="font-weight: bold; flex: 3">$firstCol</div>
             <div class="${getReceiptTextSizeHTML(size: size)}" style="font-weight: bold; flex: 1">$secondCol</div>
-            <div class="${getReceiptTextSizeHTML(size: size)}" style="font-weight: bold; flex: 0; text-align: right;">$thirdCol</div>
+            <div class="${getReceiptTextSizeHTML(size: size)}" style="font-weight: bold; flex: 2; text-align: right;">$thirdCol</div>
         </div>
     ''';
     }
