@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:barcode_image/barcode_image.dart' as bi;
 import 'package:blue_print_pos/receipt/collection_style.dart';
 import 'package:blue_print_pos/receipt/receipt_add_on_2_cols_text.dart';
 import 'package:blue_print_pos/receipt/receipt_divider.dart';
@@ -7,6 +10,7 @@ import 'package:blue_print_pos/receipt/receipt_table_row.dart';
 import 'package:blue_print_pos/receipt/receipt_three_cols_text.dart';
 import 'package:blue_print_pos/receipt/receipt_two_col_one_cell.dart';
 import 'package:esc_pos_utils_plus/esc_pos_utils.dart';
+import 'package:image/image.dart';
 import 'receipt_four_cols_text.dart';
 import 'receipt_line.dart';
 import 'receipt_one_col_one_cell.dart';
@@ -242,15 +246,28 @@ class ReceiptSectionText {
     _headerData += divider.dividerHTML;
   }
 
-  void addImage(String base64,
-      {int width = 120,
+  void addLabel(String data,
+      {int width = 200,
+      int height = 100,
       ReceiptAlignment alignment = ReceiptAlignment.center,
       required bool is80}) {
-    final ReceiptImage image = ReceiptImage(
-      base64,
+    final String base64String =
+        generateImage(width: width, height: height, data: data);
+
+    final ReceiptLabel label = ReceiptLabel(
+      base64String,
       width: width,
       alignment: alignment,
+      height: height
     );
-    _headerData += image.html;
+    _headerData += label.html;
   }
+}
+
+String generateImage(
+    {required int width, required int height, required String data}) {
+  final Image image = Image(width, height);
+  bi.drawBarcode(image, bi.Barcode.code128(), data);
+
+  return base64Encode(encodePng(image));
 }

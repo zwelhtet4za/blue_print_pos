@@ -1,20 +1,22 @@
 import 'collection_style.dart';
 import 'receipt_text_enum.dart';
 
-class ReceiptImage {
-  ReceiptImage(
-    this.data, {
+class ReceiptLabel {
+  ReceiptLabel(
+    this.base64data, {
     this.alignment = ReceiptAlignment.center,
     this.width = 120,
+    this.height = 300
   });
 
-  final String data;
+  final String base64data;
   final int width;
+  final int height;
   final ReceiptAlignment alignment;
 
   String get html => '''
     <div class="$_alignmentStyleHTML">
-      <img src ="data:image/png;base64,$data" width="$width"/>
+      <img src ="data:image/png;base64,$base64data" width="$width" height="$height"/>
     </div>
     ''';
 
